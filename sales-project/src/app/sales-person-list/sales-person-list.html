@@ -10,15 +10,21 @@
   </thead>
 
   <tbody>
-    <tr *ngFor="let salesPerson of salesPersonList" [ngClass]="{highlight: salesPerson.salesVolume >= 9000}">
+    @for (salesPerson of salesPersonList; track $index){
+    <tr [ngClass]="{highlight: salesPerson.salesVolume >= 9000}">
+
       <td>{{salesPerson.firstName}}</td>
       <td>{{salesPerson.lastName}}</td>
       <td>{{salesPerson.email}}</td>
       <td>{{salesPerson.salesVolume | currency: 'EUR'}}</td>
-      <td>
-        <div *ngIf="salesPerson.salesVolume >= 9000; else elseBlock">Yes</div>
-        <ng-template #elseBlock>No</ng-template>
-      </td>
+
+      @if (salesPerson.salesVolume >= 9000){
+        <td>Yes</td>
+      } @else {
+        <td>No</td>
+      }
+
     </tr>
+    }
   </tbody>
 </table>
